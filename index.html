@@ -1,346 +1,254 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GMBTOURS</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- font awesome cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- fonts -->
-    <link rel="stylesheet" href="font/fonts.css">
-    <!-- normalize css -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!-- custom css -->
-    <link rel="stylesheet" href="css/utility.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/estilos 2.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cupid Post - Edición Especial</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- FUENTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Chomsky&family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+ 
+    <style>
+        /* --- ESTILOS VISUALES --- */
+        :root {
+            --paper-color: #fcf6e6;
+            --ink-color: #1f1f1f;
+            --red-accent: #c1121f;
+        }
+ 
+        body {
+            font-family: 'Old Standard TT', serif;
+            background-color: #222;
+            overflow-x: hidden;
+            color: var(--ink-color);
+        }
+ 
+        .font-masthead { font-family: 'Cinzel', serif; letter-spacing: -1px; }
+        .font-headline { font-family: 'Playfair Display', serif; }
+        .font-hand { font-family: 'Great Vibes', cursive; }
+ 
+        /* --- CAPA DE FONDO (Color estático) --- */
+        .bg-gradient-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            z-index: -2;
+        }
+ 
+        /* --- CAPA DE LLUVIA (Animación) --- */
+        .rain-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 50; /* Por encima de todo */
+            pointer-events: none; /* Permite hacer clic a través de ellos */
+            overflow: hidden;
+            transition: opacity 1.5s ease; /* Transición suave de transparencia */
+        }
+ 
+        /* Clase para reducir opacidad en pestañas 2 y 3 */
+        .rain-dimmed {
+            opacity: 0.15; /* Muy transparente */
+        }
+ 
+        .floating-element {
+            position: absolute;
+            bottom: -10vh;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            animation: floatUp linear infinite;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+ 
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+ 
+        /* --- SOBRE CON VIDA --- */
+        .envelope-wrapper {
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .envelope {
+            width: 320px;
+            height: 220px;
+            background: #e6ccb2;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .envelope:hover { transform: scale(1.05) rotate(1deg); }
+        
+        .seal-wax {
+            width: 60px;
+            height: 60px;
+            background: #9f1239;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: gold;
+            font-size: 1.5rem;
+            border: 2px solid #7f1d1d;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
+            animation: pulse-glow 2s infinite;
+        }
+ 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(159, 18, 57, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(159, 18, 57, 0); }
+        }
+        @keyframes photo-pan {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+ 
+        /* --- PERIÓDICO --- */
+        .newspaper-paper {
+            background-color: var(--paper-color);
+            background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            transform-origin: center top;
+        }
+ 
+        /* Ticker */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 5px 0;
+            white-space: nowrap;
+        }
+        .ticker {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+ 
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid orange;
+            white-space: nowrap;
+            animation: typing 2.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--red-accent); } }
+ 
+        /* Cupones */
+        .coupon-ticket {
+            position: relative;
+            background: white;
+            border: 2px dashed var(--red-accent);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 40%, 5% 45%, 0% 50%, 5% 55%, 0% 60%, 0% 100%);
+            transition: all 0.3s;
+        }
+        .coupon-ticket:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 5px 5px 0px rgba(193, 18, 31, 0.2);
+        }
+ 
+        .hidden-screen { display: none; }
+        .fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        
+    </style>
 </head>
-
-<body>
-    <!-- navbar  -->
-    <nav class="navbar">
-        <div class="container flex">
-            <a href="index.html" class="site-brand">
-                <!-- GMB<span>Tours</span> -->
-                <img src="images/logo/gmbtours.png" class="logo-altura" alt="Logo de GMBTours" />
-            </a>
-            <button type="button" id="navbar-show-btn" class="flex">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div id="navbar-collapse">
-                <button type="button" id="navbar-close-btn" class="flex">
-                    <i class="fas fa-times"></i>
-                </button>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="index.html" class="nav-link">INICIO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/blog.html" class="nav-link">PAQUETES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/gallery.html" class="nav-link">ALBUM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/about.html" class="nav-link">NOSOTROS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="pages/contact.html" class="nav-link">CONTACTAR</a>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="" id="theme-toggle-btn">
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- end of navbar  -->
-
-    <!-- header -->
-    <header class="flex">
-        <div class="container">
-            <div class="header-title">
-                <p>Turismo con esencia, cultura y aventura:
-                </p>
-                <h1>GMBTOURS</h1>
-            </div>
-        </div>
-    </header>
-    <!-- header -->
-
-    <!-- featured section -->
-    <section id="featured" class="py-4">
-        <div class="container">
-            <div class="title-wrap title-intro" style="text-transform: none;">
-                <span class="lg-title">Nuestros paquetes combinan misterio, tradición y emoción en un solo viaje
-                </span>
-                <h2 class="lg-title">Elige tu experiencia y empieza a vivir tu aventura con GMBTours.</h2>
-            </div>
-            <div class="featured-row">
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca1.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca1.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Sobrevuelo a las Líneas de Nasca </span>
-                        <div>
-                            <p class="text">
-                                Tour Nasca
-                        </div>
-                    </div>
+<body class="flex flex-col min-h-screen">
+ 
+    <!-- 1. FONDO ESTÁTICO (GRADIENTE) -->
+    <div class="bg-gradient-fixed"></div>
+ 
+    <!-- 2. LLUVIA DE CORAZONES Y REGALOS (ENCIMA DE TODO) -->
+    <div class="rain-container" id="rain-container"></div>
+ 
+    <!-- === PANTALLA 1: EL SOBRE === -->
+    <div id="screen-envelope" class="flex-grow flex flex-col items-center justify-center relative z-10 h-screen w-full">
+        <h1 class="text-white font-masthead text-4xl mb-12 drop-shadow-lg tracking-widest text-center px-4">
+            Correspondencia Urgente<br>
+            <span class="font-hand text-5xl text-red-700 normal-case drop-shadow-md">para mi persona favorita</span>
+        </h1>
+ 
+        <div class="envelope-wrapper" onclick="openNewspaper()">
+            <div class="envelope">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-full h-[2px] bg-red-900 opacity-20 transform rotate-45 absolute"></div>
+                    <div class="w-full h-[2px] bg-red-900 opacity-20 transform -rotate-45 absolute"></div>
                 </div>
-
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca2.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca2.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Tour a los acueductos de Cantalloc
-                        </span>
-                        <div>
-                            <p class="text">
-                                Ruinas de paredones y telar (geoglifo) </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca3.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca5.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Tour al cementerio de chauchilla </span>
-                        <div>
-                            <p class="text">
-                                Taller de textiles y taller de cerámica
-                        </div>
-                    </div>
-                </div>
-
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca5.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca1.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Ruta de los Miradores y María Reiche</span>
-                        <div>
-                            <p class="text">Lorem ipsum, dolor sit amet </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca5.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca1.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Ruta de los Miradores y María Reiche</span>
-                        <div>
-                            <p class="text">Lorem ipsum, dolor sit amet </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-item my-2 shadow">
-                    <a href="pages/tr-nazca5.html" class="img-wrap">
-                        <img src="images/tours/tr-nazca1.webp" alt="featured place">
-                    </a>
-                    <div class="featured-item-content">
-                        <span>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Ruta de los Miradores y María Reiche</span>
-                        <div>
-                            <p class="text">Lorem ipsum, dolor sit amet </p>
-                        </div>
-                    </div>
+                <div class="seal-wax">❤</div>
+                <div class="absolute -bottom-16 bg-white/90 px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase animate-bounce text-red-900 shadow-lg">
+                    Clic para abrir
                 </div>
             </div>
         </div>
-    </section>
-    <!-- end of featured section -->
-
-    <!-- services section -->
-    <section id="services" class="py-4">
-        <div class="container">
-            <div class="title-wrap">
-                <span class="sm-title">Conozca los servicios que ofrecemos</span>
-                <h2 class="lg-title">Nuestros Servicios</h2>
-            </div>
-
-            <div class="services-row">
-                <div class="services-item">
-                    <span class="services-icon">
-                        <i class="fa-solid fa-truck-plane"></i>
-                    </span>
-                    <h3>Traslados y Transporte Seguro</h3>
-                    <p class="text">Ofrecemos movilidad confiable y puntual desde el aeropuerto, hoteles y principales puntos turísticos, para que su experiencia de viaje sea cómoda y sin preocupaciones.</p>
-                    <a href="#" class="btn">Read more</a>
-                </div>
-
-                <div class="services-item">
-                    <span class="services-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </span>
-                    <h3>Recorrido Guiado</h3>
-                    <p class="text">Descubra cada destino de la mano de guías expertos que le contarán la historia, cultura y secretos de los lugares más emblemáticos.</p>
-                    <a href="#" class="btn">Read more</a>
-                </div>
-
-                <div class="services-item">
-                    <span class="services-icon">
-                        <i class="fas fa-money-bill"></i>
-                    </span>
-                    <h3>Precios adecuados</h3>
-                    <p class="text">Le ofrecemos planes turísticos accesibles y justos, con la mejor relación calidad-precio para que disfrute de experiencias inolvidables sin gastar de más.</p>
-                    <a href="#" class="btn">Read more</a>
+    </div>
+ 
+    <!-- === PANTALLA 2: EL PERIÓDICO === -->
+    <div id="screen-newspaper" class="hidden-screen flex-col items-center py-8 min-h-screen z-10 relative">
+        <main class="newspaper-paper w-full max-w-4xl mx-auto p-4 md:p-8 shadow-2xl relative overflow-hidden transform scale-95 opacity-0 transition-all duration-1000" id="main-paper">
+            
+            <div class="ticker-wrap mb-4 border-y-2 border-black">
+                <div class="ticker font-mono text-sm uppercase tracking-wider">
+                    +++ ÚLTIMA HORA: CIENTÍFICOS CONFIRMAN QUE TUS ABRAZOS SON ADICTIVOS +++ MERCADOS DEL AMOR AL ALZA +++ ALERTA METEOROLÓGICA: PROBABILIDAD DE BESOS EXTREMOS ESTA NOCHE +++
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- end of services section -->
-
-    <!-- testimonials section -->
-    <section id="testimonials" class="py-4">
-        <div class="container">
-            <div class="title-wrap title-intro">
-                <span class="sm-title">lo que nuestros clientes dicen de nosotros</span>
-                <h2 class="lg-title">testimonios</h2>
-            </div>
-
-            <div class="test-row">
-                <div class="test-item">
-                    <p class="text">Gracias por la maravillosa experiencia. Como viajero de Alemania, descubrí lugares preciosos y recibí excelentes consejos para mi viaje. Guadalupe es una guía encantadora, servicial y con gran conocimiento local. Gracias por tu ayuda y por hacer mi viaje tan especial. ¡Espero volver a verte algún día!</p>
-                    <div class="test-item-info">
-                        <img src="images/principal/testimonio/testimonio1.webp" alt="testimonial">
-                        <div>
-                            <h3>Dennis</h3>
-                            <p class="text">Trip to Rusia</p>
+ 
+            <header class="text-center border-b-4 border-black pb-6 mb-6">
+                <div class="flex justify-between text-xs font-bold uppercase tracking-widest border-b border-black mb-2 pb-1">
+                    <span>Vol. 14</span>
+                    <span>Edición Exclusiva</span>
+                    <span>14 de Febrero</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-masthead font-black leading-none mb-2">The Cupid Post</h1>
+                <div class="flex justify-center items-center gap-4 font-serif italic text-lg text-red-700">
+                    <span>— Edición "Te Quiero Mucho" —</span>
+                </div>
+            </header>
+ 
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div class="md:col-span-7">
+                    <h2 class="text-4xl font-headline font-bold leading-tight mb-4 typewriter w-fit border-r-0">
+                        ¡Se descubre el secreto!
+                    </h2>
+                    <article class="prose font-serif text-justify text-gray-800">
+                        <p class="mb-4">
+                            <strong class="text-4xl float-left mr-2 font-masthead text-red-800 leading-[0.8]">H</strong>oy se ha filtrado un reporte confidencial de mi corazón que confirma lo que todos sospechaban: <strong>Eres oficialmente mi debilidad.</strong>
+                        </p>
+                        <p class="mb-4">
+                            Según las estadísticas, mi nivel de dopamina sube un <strong>200%</strong> cada vez que aparece tu nombre en mis notificaciones. Los expertos aseguran que no hay cura, y honestamente, no quiero encontrar una.
+                        </p>
+                        <div class="bg-gray-100 p-4 border-l-4 border-red-800 my-6 transform hover:scale-105 transition-transform duration-300 shadow-sm cursor-help" title="Esto es 100% real">
+                            <h4 class="font-bold uppercase text-xs text-gray-500 mb-1">Dato Curioso:</h4>
+                            <p class="italic text-lg">"Si me pagaran por pensar en ti, ya sería millonario/a."</p>
                         </div>
-                    </div>
+                        <h3 class="font-headline font-bold text-xl mb-2 mt-6">¿Por qué tú?</h3>
+                        <ul class="list-disc pl-5 space-y-2 marker:text-red-600">
+                            <li>Porque haces que lo ordinario se sienta extraordinario.</li>
+                            <li>Por tu paciencia (que a veces pongo a prueba).</li>
+                            <li>Porque somos el mejor equipo.</li>
+                        </ul>
+                    </article>
                 </div>
-
-                <div class="test-item">
-                    <p class="text">Excelente servicio, máxima fiabilidad. Me recogieron en el hotel y, al llegar al aeropuerto Maria Reiche, me acompañaron en todos los trámites. El vuelo fue genial. Muy satisfecho. Gracias por todo.</p>
-                    <div class="test-item-info">
-                        <img src="images/principal/testimonio/testimonio2.webp" alt="testimonial">
-                        <div>
-                            <h3>Bo Yuan</h3>
-                            <p class="text">Trip to China</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="test-item">
-                    <p class="text">Viajar con Lupita fue una excelente experiencia. Siempre atenta, con grandes recomendaciones y mucha experiencia. Gracias por hacer mi viaje tan tranquilo y especial 🌟.</p>
-                    <div class="test-item-info">
-                        <img src="images/principal/testimonio/testimonio3.webp" alt="testimonial">
-                        <div>
-                            <h3>Antonio</h3>
-                            <p class="text">Trip to Italia</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end of testimonials section -->
-
-    <!-- video section -->
-    <section id="video">
-        <div class="video-wrapper flex">
-            <video loop>
-                <source src="videos/video-section.mp4" type="video/mp4">
-            </video>
-            <button type="button" id="play-btn">
-                <i class="fas fa-play"></i>
-            </button>
-        </div>
-    </section>
-    <!-- end of video section -->
-
-    <footer class="py-4">
-        <div class="container footer-row">
-            <div class="footer-item">
-                <a href="index.html" class="site-brand">
-                    GM<span>Tours</span>
-                </a>
-                <p class="text txt-jstf">ofrecemos experiencias únicas para descubrir lo mejor de Perú. Nuestros tours combinan historia, cultura y aventura, con guías expertos que harán de tu viaje un recuerdo inolvidable. Confía en nosotros para tu próxima experiencia turística.</p>
-            </div>
-
-            <div class=" footer-item">
-                <h2>Siguenos: </h2>
-                <ul class="social-links">
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fab fa-google-plus"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="footer-item">
-                <h2>Tours populares:</h2>
-                <ul>
-                    <li><a href="#">EJEMPLO 1</a></li>
-                    <li><a href="#">EJEMPLO 2</a></li>
-                    <li><a href="#">EJEMPLO 3</a></li>
-                    <li><a href="#">EJEMPLO 4</a></li>
-                    <li><a href="#">EJEMPLO 5</a></li>
-                </ul>
-            </div>
-
-            <div class="subscribe-form footer-item">
-                <h2>Obtén promociones!</h2>
-                <form class="flex">
-                    <input type="email" placeholder="Ingresar Email" class="form-control">
-                    <input type="submit" class="btn" value="Registrarme">
-                </form>
-            </div>
-        </div>
-    </footer>
-    <!-- end of footer -->
-
-    <!-- js -->
-
-    <a href="https://wa.me/51984312581" class="whatsapp-float" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-</body>
-<script src="js/script.js"></script>
-
-<script src="https://kit.fontawesome.com/b837442c39.js" crossorigin="anonymous"></script>
-
-</html>
+                <div class="md:col-span-5 flex flex-col gap-6">
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-black translate-x-2 translate-y-2 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&
+ 
