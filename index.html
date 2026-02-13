@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -250,5 +251,198 @@
                 <div class="md:col-span-5 flex flex-col gap-6">
                     <div class="relative group">
                         <div class="absolute inset-0 bg-black translate-x-2 translate-y-2 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
-                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&
+                 <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Nosotros" 
+                             class="relative w-full h-72 object-cover border-2 border-black grayscale group-hover:grayscale-0 transition duration-700 animate-[photo-pan_10s_infinite_alternate]">
+                        <div class="absolute bottom-2 right-2 bg-white px-2 text-xs font-bold border border-black transform rotate-2">
+                            Fig 1. Evidencia gráfica
+                        </div>
+                    </div>
+                    <div class="border-4 double border-red-800 p-4 text-center bg-red-50 hover:bg-red-100 transition duration-300">
+                        <h4 class="font-masthead text-xl font-bold mb-2">Oferta Limitada</h4>
+                        <p class="text-sm mb-2">Besos y abrazos disponibles.</p>
+                        <div class="text-3xl animate-bounce mt-2">👇</div>
+                    </div>
+                </div>
+            </div>
  
+            <div class="mt-8 text-center border-t-2 border-black pt-6">
+                <button onclick="goToProposal()" class="group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-200 bg-black font-masthead focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                    <span>Pasar a la Página 2 (La Propuesta)</span>
+                    <div class="w-0 h-full absolute top-0 left-0 bg-red-700 opacity-20 duration-300 group-hover:w-full"></div>
+                    <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+                </button>
+            </div>
+        </main>
+    </div>
+ 
+    <!-- === PANTALLA 3: PROPUESTA === -->
+    <div id="screen-proposal" class="hidden-screen flex-col items-center py-8 min-h-screen z-10 relative">
+        <main class="newspaper-paper w-full max-w-3xl mx-auto p-8 shadow-2xl relative border-4 border-double border-red-900 fade-in">
+            
+            <div id="question-section" class="text-center py-12">
+                <div class="inline-block border-2 border-black px-4 py-1 font-bold uppercase tracking-widest text-xs mb-6 bg-yellow-200 transform -rotate-2">
+                    Clasificados del Amor
+                </div>
+                
+                <h2 class="text-5xl md:text-6xl font-headline font-bold mb-8 leading-tight">
+                    ¿Quieres ser mi<br><span class="text-red-700 font-hand text-7xl">San Valentín?</span>
+                </h2>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-6 mt-8">
+                    <button onclick="acceptLove()" class="bg-red-700 text-white font-masthead text-xl px-10 py-4 shadow-lg hover:bg-red-800 hover:scale-105 transition transform">
+                        ¡SÍ, ACEPTO!
+                    </button>
+                    <button onmouseover="this.innerText='¡SÍ, TAMBIÉN!'" onmouseout="this.innerText='Lo pensaré...'" onclick="acceptLove()" class="bg-transparent border-2 border-black text-black font-masthead text-xl px-10 py-4 hover:bg-black hover:text-white transition">
+                        Lo pensaré...
+                    </button>
+                </div>
+            </div>
+ 
+            <div id="coupons-section" class="hidden">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-headline font-bold text-red-800 mb-2">¡Trato Hecho! 🥂</h2>
+                    <p class="font-serif italic text-gray-600">Selecciona tu regalo de bienvenida (se abrirá tu WhatsApp):</p>
+                </div>
+ 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div onclick="shareGeneric('Cena Romántica')" class="coupon-ticket p-6 flex flex-col items-center text-center cursor-pointer group">
+                        <div class="text-4xl mb-2 group-hover:scale-110 transition">🍝</div>
+                        <h3 class="font-masthead text-xl font-bold">Cena Romántica</h3>
+                        <p class="text-xs font-serif italic text-gray-500 mt-1">Yo pago, tú eliges el playlist.</p>
+                        <div class="mt-4 text-xs font-bold uppercase border-b border-black text-red-700">Reclamar Ahora &rarr;</div>
+                    </div>
+                    <div onclick="shareGeneric('Cine y Chill')" class="coupon-ticket p-6 flex flex-col items-center text-center cursor-pointer group">
+                        <div class="text-4xl mb-2 group-hover:scale-110 transition">🎬</div>
+                        <h3 class="font-masthead text-xl font-bold">Cine & Chill</h3>
+                        <p class="text-xs font-serif italic text-gray-500 mt-1">Maratón de pelis + snacks.</p>
+                        <div class="mt-4 text-xs font-bold uppercase border-b border-black text-red-700">Reclamar Ahora &rarr;</div>
+                    </div>
+                    <div onclick="shareGeneric('Masaje Relajante')" class="coupon-ticket p-6 flex flex-col items-center text-center cursor-pointer group">
+                        <div class="text-4xl mb-2 group-hover:scale-110 transition">💆‍♂️</div>
+                        <h3 class="font-masthead text-xl font-bold">Masaje VIP</h3>
+                        <p class="text-xs font-serif italic text-gray-500 mt-1">30 min de relax total.</p>
+                        <div class="mt-4 text-xs font-bold uppercase border-b border-black text-red-700">Reclamar Ahora &rarr;</div>
+                    </div>
+                    <div onclick="shareGeneric('Date Sorpresa')" class="coupon-ticket p-6 flex flex-col items-center text-center cursor-pointer group">
+                        <div class="text-4xl mb-2 group-hover:scale-110 transition">🎁</div>
+                        <h3 class="font-masthead text-xl font-bold">Cita Sorpresa</h3>
+                        <p class="text-xs font-serif italic text-gray-500 mt-1">Tengo un plan secreto.</p>
+                        <div class="mt-4 text-xs font-bold uppercase border-b border-black text-red-700">Reclamar Ahora &rarr;</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+ 
+    <!-- SCRIPT CORREGIDO Y COMPLETO -->
+    <script>
+        // --- CONFIGURACIÓN DE LLUVIA ---
+        function createRain() {
+            const container = document.getElementById('rain-container');
+            const numElements = 20; 
+            const icons = ['❤️', '💖', '🎁', '🌹', '✨']; // Iconos: Corazones y Regalos
+            
+            for(let i=0; i<numElements; i++){
+                const el = document.createElement('div');
+                el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                el.classList.add('floating-element');
+                
+                // Aleatoriedad
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                el.style.animationDelay = (Math.random() * 5) + 's';
+                el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                
+                container.appendChild(el);
+            }
+        }
+        createRain();
+ 
+        // --- TRANSICIONES Y CONTROL DE OPACIDAD ---
+        
+        function openNewspaper() {
+            const env = document.getElementById('screen-envelope');
+            const paper = document.getElementById('screen-newspaper');
+            const mainPaper = document.getElementById('main-paper');
+            const rain = document.getElementById('rain-container');
+ 
+            // 1. Reducir opacidad de la lluvia
+            if(rain) rain.classList.add('rain-dimmed');
+ 
+            // 2. Animación de salida del sobre
+            env.style.opacity = '0';
+            env.style.transform = 'scale(1.5)';
+            env.style.transition = 'all 0.8s ease';
+ 
+            setTimeout(() => {
+                env.classList.add('hidden-screen');
+                paper.classList.remove('hidden-screen');
+                paper.style.display = 'flex';
+                
+                // FIX: Scroll arriba
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+ 
+                setTimeout(() => {
+                    mainPaper.style.opacity = '1';
+                    mainPaper.style.transform = 'scale(1)';
+                    launchConfetti(); 
+                }, 100);
+            }, 600);
+        }
+ 
+        function goToProposal() {
+            const paper = document.getElementById('screen-newspaper');
+            const proposal = document.getElementById('screen-proposal');
+ 
+            paper.style.opacity = '0';
+            paper.style.transform = 'translateX(-100vw) rotate(-5deg)';
+            paper.style.transition = 'all 0.8s ease';
+ 
+            setTimeout(() => {
+                paper.classList.add('hidden-screen');
+                proposal.classList.remove('hidden-screen');
+                proposal.style.display = 'flex';
+                // FIX: Scroll arriba
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 600);
+        }
+ 
+        function acceptLove() {
+            const qSection = document.getElementById('question-section');
+            const cSection = document.getElementById('coupons-section');
+ 
+            // Explosión de confeti
+            var end = Date.now() + 1000;
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#c1121f', '#000'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#c1121f', '#000'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+ 
+            qSection.style.display = 'none';
+            cSection.style.display = 'block';
+            cSection.classList.add('fade-in');
+            // FIX: Scroll arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+ 
+        function shareGeneric(couponName) {
+            const message = `¡Hola! 🥰 Acepté ser tu San Valentín y elijo este cupón: *${couponName}*. ¿Cuándo lo canjeamos?`;
+            
+            // Intento abrir app
+            window.location.href = `whatsapp://send?text=${encodeURIComponent(message)}`;
+            
+            // Fallback para web
+            setTimeout(() => {
+                window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            }, 500);
+        }
+ 
+        function launchConfetti() {
+            confetti({ particleCount: 40, spread: 70, origin: { y: 0.6 } });
+        }
+    </script>
+</body>
+</html>
+  
