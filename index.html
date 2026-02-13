@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,6 +32,11 @@
         .font-headline { font-family: 'Playfair Display', serif; }
         .font-hand { font-family: 'Great Vibes', cursive; }
  
+        /* --- CLASE CRÍTICA PARA OCULTAR PANTALLAS --- */
+        .hidden-screen {
+            display: none !important;
+        }
+ 
         /* --- CAPA DE FONDO (Color estático) --- */
         .bg-gradient-fixed {
             position: fixed;
@@ -45,15 +49,14 @@
         .rain-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 50; /* Por encima de todo */
-            pointer-events: none; /* Permite hacer clic a través de ellos */
+            z-index: 50;
+            pointer-events: none;
             overflow: hidden;
-            transition: opacity 1.5s ease; /* Transición suave de transparencia */
+            transition: opacity 1.5s ease;
         }
  
-        /* Clase para reducir opacidad en pestañas 2 y 3 */
         .rain-dimmed {
-            opacity: 0.15; /* Muy transparente */
+            opacity: 0.15; /* Transparencia al leer */
         }
  
         .floating-element {
@@ -87,6 +90,7 @@
             justify-content: center;
             align-items: center;
             transition: transform 0.3s;
+            overflow: hidden; /* Para que las líneas no salgan */
         }
         .envelope:hover { transform: scale(1.05) rotate(1deg); }
         
@@ -103,6 +107,7 @@
             border: 2px solid #7f1d1d;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
             animation: pulse-glow 2s infinite;
+            z-index: 20;
         }
  
         @keyframes float {
@@ -167,7 +172,6 @@
             box-shadow: 5px 5px 0px rgba(193, 18, 31, 0.2);
         }
  
-        .hidden-screen { display: none; }
         .fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
         @keyframes fadeIn { to { opacity: 1; } }
         
@@ -175,10 +179,10 @@
 </head>
 <body class="flex flex-col min-h-screen">
  
-    <!-- 1. FONDO ESTÁTICO (GRADIENTE) -->
+    <!-- 1. FONDO ESTÁTICO -->
     <div class="bg-gradient-fixed"></div>
  
-    <!-- 2. LLUVIA DE CORAZONES Y REGALOS (ENCIMA DE TODO) -->
+    <!-- 2. LLUVIA DE CORAZONES Y REGALOS -->
     <div class="rain-container" id="rain-container"></div>
  
     <!-- === PANTALLA 1: EL SOBRE === -->
@@ -190,11 +194,16 @@
  
         <div class="envelope-wrapper" onclick="openNewspaper()">
             <div class="envelope">
+                <!-- LÍNEAS DEL SOBRE (RECUPERADAS) -->
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-full h-[2px] bg-red-900 opacity-20 transform rotate-45 absolute"></div>
                     <div class="w-full h-[2px] bg-red-900 opacity-20 transform -rotate-45 absolute"></div>
+                    <!-- Triángulo superior sutil para efecto solapa -->
+                    <div class="absolute top-0 left-0 w-0 h-0 border-l-[160px] border-l-transparent border-r-[160px] border-r-transparent border-t-[110px] border-t-red-900/10"></div>
                 </div>
+                
                 <div class="seal-wax">❤</div>
+                
                 <div class="absolute -bottom-16 bg-white/90 px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase animate-bounce text-red-900 shadow-lg">
                     Clic para abrir
                 </div>
@@ -238,7 +247,7 @@
                         </p>
                         <div class="bg-gray-100 p-4 border-l-4 border-red-800 my-6 transform hover:scale-105 transition-transform duration-300 shadow-sm cursor-help" title="Esto es 100% real">
                             <h4 class="font-bold uppercase text-xs text-gray-500 mb-1">Dato Curioso:</h4>
-                            <p class="italic text-lg">"Si me pagaran por pensar en ti, ya sería millonario/a."</p>
+                            <p class="italic text-lg">"Si me pagaran por pensar en ti, ya sería millonario."</p>
                         </div>
                         <h3 class="font-headline font-bold text-xl mb-2 mt-6">¿Por qué tú?</h3>
                         <ul class="list-disc pl-5 space-y-2 marker:text-red-600">
@@ -248,10 +257,12 @@
                         </ul>
                     </article>
                 </div>
-                <div class="md:col-span-5 flex flex-col gap-6">
+               
+<div class="md:col-span-5 flex flex-col gap-6">
                     <div class="relative group">
                         <div class="absolute inset-0 bg-black translate-x-2 translate-y-2 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
-                 <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" 
+                        <!-- CAMBIAR FOTO AQUÍ -->
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" 
                              alt="Nosotros" 
                              class="relative w-full h-72 object-cover border-2 border-black grayscale group-hover:grayscale-0 transition duration-700 animate-[photo-pan_10s_infinite_alternate]">
                         <div class="absolute bottom-2 right-2 bg-white px-2 text-xs font-bold border border-black transform rotate-2">
@@ -268,7 +279,7 @@
  
             <div class="mt-8 text-center border-t-2 border-black pt-6">
                 <button onclick="goToProposal()" class="group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-200 bg-black font-masthead focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
-                    <span>Pasar a la Página 2 (La Propuesta)</span>
+                    <span>Siguiente</span>
                     <div class="w-0 h-full absolute top-0 left-0 bg-red-700 opacity-20 duration-300 group-hover:w-full"></div>
                     <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
                 </button>
@@ -302,7 +313,7 @@
             <div id="coupons-section" class="hidden">
                 <div class="text-center mb-10">
                     <h2 class="text-4xl font-headline font-bold text-red-800 mb-2">¡Trato Hecho! 🥂</h2>
-                    <p class="font-serif italic text-gray-600">Selecciona tu regalo de bienvenida (se abrirá tu WhatsApp):</p>
+                    <p class="font-serif italic text-gray-600">Selecciona tu regalo:</p>
                 </div>
  
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -337,29 +348,26 @@
  
     <!-- SCRIPT CORREGIDO Y COMPLETO -->
     <script>
-        // --- CONFIGURACIÓN DE LLUVIA ---
+        // --- 1. LLUVIA DE ICONOS ---
         function createRain() {
             const container = document.getElementById('rain-container');
             const numElements = 20; 
-            const icons = ['❤️', '💖', '🎁', '🌹', '✨']; // Iconos: Corazones y Regalos
+            const icons = ['❤️', '💖', '🎁', '🌹', '✨']; 
             
             for(let i=0; i<numElements; i++){
                 const el = document.createElement('div');
                 el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
                 el.classList.add('floating-element');
-                
-                // Aleatoriedad
                 el.style.left = Math.random() * 100 + 'vw';
                 el.style.animationDuration = (Math.random() * 5 + 8) + 's';
                 el.style.animationDelay = (Math.random() * 5) + 's';
                 el.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                
                 container.appendChild(el);
             }
         }
         createRain();
  
-        // --- TRANSICIONES Y CONTROL DE OPACIDAD ---
+        // --- 2. FUNCIONES DE NAVEGACIÓN ---
         
         function openNewspaper() {
             const env = document.getElementById('screen-envelope');
@@ -367,22 +375,26 @@
             const mainPaper = document.getElementById('main-paper');
             const rain = document.getElementById('rain-container');
  
-            // 1. Reducir opacidad de la lluvia
+            // Atenuar lluvia
             if(rain) rain.classList.add('rain-dimmed');
  
-            // 2. Animación de salida del sobre
+            // Animación de salida del sobre
             env.style.opacity = '0';
             env.style.transform = 'scale(1.5)';
             env.style.transition = 'all 0.8s ease';
  
             setTimeout(() => {
+                // Ocultar sobre y mostrar periódico
                 env.classList.add('hidden-screen');
                 paper.classList.remove('hidden-screen');
                 paper.style.display = 'flex';
                 
-                // FIX: Scroll arriba
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // SCROLL AUTOMÁTICO AL TOPE 
  
+
+window.scrollTo(0, 0);
+ 
+                // Entrada suave del contenido
                 setTimeout(() => {
                     mainPaper.style.opacity = '1';
                     mainPaper.style.transform = 'scale(1)';
@@ -395,6 +407,7 @@
             const paper = document.getElementById('screen-newspaper');
             const proposal = document.getElementById('screen-proposal');
  
+            // Animación salida periódico
             paper.style.opacity = '0';
             paper.style.transform = 'translateX(-100vw) rotate(-5deg)';
             paper.style.transition = 'all 0.8s ease';
@@ -403,8 +416,9 @@
                 paper.classList.add('hidden-screen');
                 proposal.classList.remove('hidden-screen');
                 proposal.style.display = 'flex';
-                // FIX: Scroll arriba
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // SCROLL AUTOMÁTICO AL TOPE
+                window.scrollTo(0, 0);
             }, 600);
         }
  
@@ -412,7 +426,7 @@
             const qSection = document.getElementById('question-section');
             const cSection = document.getElementById('coupons-section');
  
-            // Explosión de confeti
+            // Confeti
             var end = Date.now() + 1000;
             (function frame() {
                 confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#c1121f', '#000'] });
@@ -420,20 +434,22 @@
                 if (Date.now() < end) requestAnimationFrame(frame);
             }());
  
+            // Cambio de sección
             qSection.style.display = 'none';
             cSection.style.display = 'block';
             cSection.classList.add('fade-in');
-            // FIX: Scroll arriba
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Scroll arriba
+            window.scrollTo(0, 0);
         }
  
         function shareGeneric(couponName) {
             const message = `¡Hola! 🥰 Acepté ser tu San Valentín y elijo este cupón: *${couponName}*. ¿Cuándo lo canjeamos?`;
             
-            // Intento abrir app
+            // Abrir WhatsApp
             window.location.href = `whatsapp://send?text=${encodeURIComponent(message)}`;
             
-            // Fallback para web
+            // Fallback
             setTimeout(() => {
                 window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
             }, 500);
@@ -445,4 +461,4 @@
     </script>
 </body>
 </html>
-  
+ 
